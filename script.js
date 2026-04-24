@@ -1,20 +1,23 @@
 document.getElementById("btn").addEventListener("click", function (e) {
   e.preventDefault();
 
-  const age = Number(document.getElementById("age").value);
-  const name = document.getElementById("name").value.trim();
+  const ageInput = document.getElementById("age").value;
+  const nameInput = document.getElementById("name").value;
+
+  const age = Number(ageInput);
+  const name = nameInput.trim();
 
   // Validation
-  if (!age || name === "") {
+  if (!ageInput || !name) {
     alert("Please enter valid details.");
     return;
   }
 
-  // Promise function
+  // Promise Function
   function checkEligibility(age, name) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (age >= 18) {
+        if (age > 18) {
           resolve(`Welcome, ${name}. You can vote.`);
         } else {
           reject(`Oh sorry ${name}. You aren't old enough.`);
@@ -23,8 +26,12 @@ document.getElementById("btn").addEventListener("click", function (e) {
     });
   }
 
-  // Calling promise
+  // Execute Promise
   checkEligibility(age, name)
-    .then((msg) => alert(msg))
-    .catch((err) => alert(err));
+    .then((message) => {
+      alert(message);
+    })
+    .catch((error) => {
+      alert(error);
+    });
 });
